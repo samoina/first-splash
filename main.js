@@ -18,7 +18,7 @@ guessRecord.innerHTML = "Previous Guesses: ";
 guessRecord.style.display = "none";
 
 //Function to show correct answer, disable inputs and start new game
-function showCorrectGuess(msg) {  
+function showCorrectGuess(msg) {
   let p = document.createElement("p");
   p.className = "alert alert-info";
   p.innerHTML = msg;
@@ -35,16 +35,20 @@ function showCorrectGuess(msg) {
     response.innerHTML = "";
     guessRecord.innerHTML = "";
 
-    userGuess.value = '';
+    userGuess.value = "";
     userGuess.disabled = false;
     submitBtn.disabled = false;
+
+    let randomGuess = Math.floor(Math.random() * 100) + 1;
+    console.log(randomGuess);
+    counter = 10;
 
     ev.preventDefault();
   });
 }
 
 //Function to show error
-function showError(errorMsg){
+function showError(errorMsg) {
   let p = document.createElement("p");
   p.className = "alert alert-danger";
   p.innerHTML = errorMsg;
@@ -52,8 +56,36 @@ function showError(errorMsg){
   response.appendChild(p);
 
   setTimeout(() => {
-    p.style.display='none';
+    p.style.display = "none";
   }, 2000);
+}
+
+//Function to show Game Over
+function showGameOver(gameOverMsg) {
+  let p = document.createElement("p");
+  p.className = "alert alert-danger";
+  p.innerHTML = gameOverMsg;
+
+  response.appendChild(p);
+
+  userGuess.disabled = true;
+  submitBtn.disabled = true;
+
+  newGameBtn.style.display = "block";
+
+  newGameBtn.addEventListener("click", function (ev) {
+    newGameBtn.style.display = "none";
+    response.innerHTML = "";
+    guessRecord.innerHTML = "";
+
+    userGuess.value = "";
+    userGuess.disabled = false;
+    submitBtn.disabled = false;
+
+    counter = 10;
+
+    ev.preventDefault();
+  });
 }
 
 //Provide the player with a way to guess what the number is.
@@ -66,15 +98,25 @@ function checkGuess(ev) {
   guessRecord.style.display = "block";
   guessRecord.innerHTML += `${userGuess.value} `;
 
-  if ( userAnswer === randomGuess) {
-    showCorrectGuess("Congratulations! You got it right!");
-  } else if(userAnswer !== randomGuess && userAnswer < randomGuess) {
-    showError('Not correct. Your last guess was too low');
-  } else if(userAnswer !== randomGuess && userAnswer > randomGuess){
-    showError('Not correct. Your last guess was too high');
+  while (counter > 0) {
+    if (userAnswer === randomGuess) {
+      counter = 0;
+      showCorrectGuess("Congratulations! You got it right!");
+      return;
+    } else {
+      counter--;
+      if (userAnswer < randomGuess) {
+        showError(`Wrong! Your last guess was too low. Remaining Guesses: ${counter}`);
+        
+      } else if (userAnswer > randomGuess) {
+        showError(`Wrong. Your last guess was too high. Remaining Guesses: ${counter}`);
+      }
+    }
   }
 
-  
- 
+  if (counter === 0) {
+    showGameOver("The Game is Over! You lost!");
+  }
+
   ev.preventDefault();
 }
