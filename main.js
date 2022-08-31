@@ -23,6 +23,12 @@ getARandomNumber();
 function showResponse(message, type) {
   response.textContent += message;
   response.className = `alert alert-${type}`;
+
+  //add timeout so that the message can disapear
+  setTimeout(() => {
+    response.textContent = '';
+    response.className = '';
+  }, 3000);
 }
 
 //start new game
@@ -60,13 +66,13 @@ function checkGuess(ev) {
   } else {
     counter--;
     if (userGuessNumber < randomAnswer) {
-      console.log(`Wrong! Number is too low You have ${counter} guesses`);
+      showResponse(`Wrong! Number is too low. You have ${counter} guesses remaining`, 'warning');
     } else if (userGuessNumber > randomAnswer) {
-      console.log(`Wrong! Number is too high You have ${counter} guesses`);
+      showResponse(`Wrong! Number is too high. You have ${counter} guesses remaining`, 'warning');
     }
   }
 
-  if (counter === 0) {
+  if (counter === 0 && userGuessNumber !== randomAnswer) {
     showResponse(`Your guesses are over! The answer was ${randomAnswer}. Start a new game`, "warning");
     userGuess.disabled = true;
 
