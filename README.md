@@ -31,4 +31,4 @@ Create more mini projects like this one to keep myself going.
 Credits to my coffee and a few responses from stack overflow :)
 
 ## License
-[MIT] (https://choosealicense.com/licenses/mit/)
+[MIT](https://choosealicense.com/licenses/mit/)
