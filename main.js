@@ -3,9 +3,9 @@ let submitBtn = document.getElementById("submit-btn"),
   userGuess = document.getElementById("user-guess"),
   response = document.getElementById("response"),
   newGameBtn = document.getElementById("new-game");
-  guessRecord = document.getElementById("guess-record"),
-  randomAnswer = 0,
-  counter = 10;
+(guessRecord = document.getElementById("guess-record")),
+  (randomAnswer = 0),
+  (counter = 10);
 
 newGameBtn.style.display = "none";
 response.textContent = "";
@@ -26,15 +26,17 @@ function showResponse(message, type) {
 }
 
 //start new game
-function startGame(ev){
+function startGame(ev) {
   counter = 10;
-  userGuess.disabled=false;
+  userGuess.disabled = false;
   submitBtn.disabled = false;
   newGameBtn.style.display = "none";
-  guessRecord.textContent ='';
-  response.textContent = '';
-  response.className='';
-  userGuess.value='';
+  guessRecord.textContent = "";
+  response.textContent = "";
+  response.className = "";
+  userGuess.value = "";
+
+  getARandomNumber();
 
   ev.preventDefault();
 }
@@ -44,23 +46,37 @@ function checkGuess(ev) {
   let userGuessNumber = parseInt(userGuess.value);
   console.log(userGuessNumber);
 
-  guessRecord.textContent += userGuessNumber;
+  guessRecord.textContent += `${userGuessNumber} `;
 
   if (userGuessNumber === randomAnswer) {
-
     showResponse("Congratulations! You got that correct!", "info");
     counter = 0;
-    userGuess.disabled=true;
-    
+    userGuess.disabled = true;
+
     submitBtn.disabled = true;
     newGameBtn.style.display = "block";
-   
 
-    newGameBtn.addEventListener('click', startGame)
-
+    newGameBtn.addEventListener("click", startGame);
   } else {
+    counter--;
+    if (userGuessNumber < randomAnswer) {
+      console.log(`Wrong! Number is too low You have ${counter} guesses`);
+    } else if (userGuessNumber > randomAnswer) {
+      console.log(`Wrong! Number is too high You have ${counter} guesses`);
+    }
+  }
 
+  if (counter === 0) {
+    showResponse(`Your guesses are over! The answer was ${randomAnswer}. Start a new game`, "warning");
+    userGuess.disabled = true;
+
+    submitBtn.disabled = true;
+    newGameBtn.style.display = "block";
+
+    newGameBtn.addEventListener("click", startGame);
   }
 
   ev.preventDefault();
 }
+
+
