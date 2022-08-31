@@ -2,12 +2,13 @@
 This is a simple project that I pre-did to improve my understanding of elemental Javascript concepts. Created using HTML and JS, with inspo from the MDN website.
 
 ## Table of Contents
-* [Project-Description] (#project-description)
-* [Project-Status] (#project-status)
-* [Project-Context] (#project-context)
-* [Technologies] (#technologies)
-* [Roadmap] (#roadmap)
-* [Credits] (#credits)
+* [Project Description](#project-description)
+* [Project Status](#project-status)
+* [Project Context](#project-context)
+* [Technologies](#technologies)
+* [Roadmap](#roadmap)
+* [Credits](#credits)
+* [License](#license)
 
 
 
