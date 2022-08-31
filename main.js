@@ -7,6 +7,8 @@ let submitBtn = document.getElementById("submit-btn"),
   randomAnswer = 0,
   counter = 10;
 
+userGuess.focus();
+
 //Hide the 'New Game' button anbd set the response paragrapht to empty
 newGameBtn.style.display = "none";
 response.textContent = "";
@@ -38,6 +40,8 @@ function startGame(ev) {
   response.textContent = "";
   response.className = "";
   userGuess.value = "";
+
+  userGuess.focus();
 
   getARandomNumber();
 
