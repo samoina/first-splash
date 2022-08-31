@@ -21,14 +21,14 @@ getARandomNumber();
 
 //showResponse, error or success
 function showResponse(message, type) {
-  response.textContent += message;
+  response.textContent = message;
   response.className = `alert alert-${type}`;
 
   //add timeout so that the message can disapear
-  setTimeout(() => {
-    response.textContent = '';
-    response.className = '';
-  }, 3000);
+  // setTimeout(() => {
+  //   response.textContent = '';
+  //   response.className = '';
+  // }, 3000);
 }
 
 //start new game
